@@ -7,3 +7,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 const store = createStore(rootReducer, composeWithDevTools());
 
 export default store;
+
+
+// A store is an object that holds the application's state tree. 
+// There should only be a single store in a Redux app, as the composition happens on the reducer level.
+
+// - để tạo ra store thì cần gọi hàm createStore của thư viện redux 
+// để cho store hoạt động có bao nhiêu reducer sẽ đẩy hết vào store , bao gồm các middleWare như  composeWithDevTools()
+
