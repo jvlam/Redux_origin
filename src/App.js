@@ -24,13 +24,14 @@ function App(props) {
     //     payload: {'name' : 'lam'}              // ---> cách viết này giống như cách trên, cũng dispatch một action
     //   }                                        // nhưng cách viết trên ngắn gọn hơn được redux hỗ trợ để chúng ta code ít đi 
     // )                                          // nhờ có thằng connect của thư viện react/redux 
-                                               // và mapDispatchToProps 
+                                                  // và mapDispatchToProps 
   }
 
   return (
     <div className="App">
       <header className="App-header">
       <div>Count: {props.count}</div>
+      <div>hello: {props.name}</div>
 
       <button onClick={() => handleIncrease()}>Increase Count</button>
 
@@ -42,13 +43,15 @@ function App(props) {
 
 
 
-
+// map state của thằng ( Redux ) cho vào props của thằng ( React )
 const mapStateToProps = state => {
   return {
-    count: state.counter.count,
+    count: state.counter123.count,
+    name: state.counter123.name
   }
 }
 
+// map dispatch (redux) to props react 
 const mapDispatchToProps = dispatch => {
   return {
     increaseCounter: () => dispatch(increaseCounter()),
@@ -57,4 +60,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
+// connect là một HOC 
+// cấy hàm hai function vào Component App 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
