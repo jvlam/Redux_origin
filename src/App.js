@@ -17,13 +17,13 @@ function App(props) {
   // event handler
   const handleIncrease = () => {
     // dispatch action  --> bắn từ react vào trong store 
-    // props.increaseCounter()
+    props.increaseCounter()
 
-      store.dispatch({
-        type: 'Test', 
-        payload: {'name' : 'lam'}              // ---> cách viết này giống như cách trên, cũng dispatch một action
-      }                                        // nhưng cách viết trên ngắn gọn hơn được redux hỗ trợ để chúng ta code ít đi 
-    )                                          // nhờ có thằng connect của thư viện react/redux 
+    //   store.dispatch({
+    //     type: 'Test', 
+    //     payload: {'name' : 'lam'}              // ---> cách viết này giống như cách trên, cũng dispatch một action
+    //   }                                        // nhưng cách viết trên ngắn gọn hơn được redux hỗ trợ để chúng ta code ít đi 
+    // )                                          // nhờ có thằng connect của thư viện react/redux 
                                                // và mapDispatchToProps 
   }
 
