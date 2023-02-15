@@ -1,5 +1,5 @@
 
-import { INCREMENT, DECREMENT } from '../action/constant';
+import { INCREMENT, DECREMENT } from '../action/types';
 
 
 const INITIAL_STATE = {

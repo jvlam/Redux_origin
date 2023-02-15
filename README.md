@@ -3,3 +3,4 @@
 
 # How store work 
 - 1. Create Store 
+- 2. Action 
