@@ -11,6 +11,8 @@ import store from './redux/store';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './components/Home';
 
 function App(props) {
 
@@ -36,14 +38,15 @@ function App(props) {
 
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
       <div>Count: {newCount}</div>
       <div>hello: {name}</div>
 
       <button onClick={() => handleIncrease()}>Increase Count</button>
 
       <button onClick={() => dispatch(decreaseCounter())}>Decrease Count</button>
-      </header>
+      </header> */}
+      <Home/>
     </div>
   );
 }
