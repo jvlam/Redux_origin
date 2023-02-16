@@ -3,7 +3,10 @@ import {
   DECREMENT,
   FETCH_USER_REQUEST,
   FETCH_USER_SUCCESS,
-  FETCH_USER_ERROR
+  FETCH_USER_ERROR,
+  CREATE_USER_REQUEST,
+  CREATE_USER_SUCCESS,
+  CREATE_USER_ERROR
 } from "./types";
 
 import axios from 'axios';
@@ -63,4 +66,41 @@ export function fetchUsersError() {
   return {
     type: FETCH_USER_ERROR
   }
+}
+
+
+// create new user
+
+export const createNewUser = (user) => {
+  return async(dispatch, getState) => {
+    dispatch(createUsersRequest());
+    try {
+      const res = await axios.post("http://localhost:8080/users/create", {...user});
+      if(res && res.data.errCode === 0) {
+        dispatch(createUsersSuccess())
+        dispatch(fetchAllUsers())
+      }
+    } catch (error) {
+      dispatch(createUsersError())
+    }
+  }
+}
+
+export function createUsersRequest(){
+  return {
+    type: CREATE_USER_REQUEST
+  }
+}
+
+export function createUsersSuccess(data) {
+  return {
+    type: CREATE_USER_SUCCESS,
+    dataUsers: data
+  }
+}
+
+export function createUsersError() {
+  return {
+    type: CREATE_USER_ERROR
+  } 
 }
