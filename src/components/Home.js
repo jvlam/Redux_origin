@@ -3,11 +3,6 @@ import Header from "./Header";
 import TableUser from "./TableUser";
 
 function Home(props) {
-
-
-
-
-
   return (
     <>
       <Header />
