@@ -6,7 +6,10 @@ import {
   FETCH_USER_ERROR,
   CREATE_USER_REQUEST,
   CREATE_USER_SUCCESS,
-  CREATE_USER_ERROR
+  CREATE_USER_ERROR,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_ERROR
 } from "./types";
 
 import axios from 'axios';
@@ -49,6 +52,9 @@ export const fetchAllUsers = () => {
   }
 }
 
+
+// những thằng này sẽ nhảy vào reducer và thực thi theo type 
+
 export function fetchUsersRequest(){
   return {
     type: FETCH_USER_REQUEST
@@ -86,21 +92,58 @@ export const createNewUser = (user) => {
   }
 }
 
+// những thằng này sẽ nhảy vào reducer và thực thi theo type 
 export function createUsersRequest(){
   return {
     type: CREATE_USER_REQUEST
   }
 }
 
-export function createUsersSuccess(data) {
+export function createUsersSuccess() {
   return {
-    type: CREATE_USER_SUCCESS,
-    dataUsers: data
+    type: CREATE_USER_SUCCESS
   }
 }
 
 export function createUsersError() {
   return {
     type: CREATE_USER_ERROR
+  } 
+}
+
+// delete a user
+
+export const deleteUser = (id) => {
+  return async(dispatch, getState) => {
+    dispatch(deleteUsersRequest());
+    try {
+      const res = await axios.post(`http://localhost:8080/users/delete/${id}`);
+      console.log(res);
+      if(res && res.data.errCode === 0) {
+        dispatch(deleteUsersSuccess());
+        dispatch(fetchAllUsers());
+      }
+    } catch (error) {
+      dispatch(deleteUsersError());
+    }
+  }
+}
+
+// những thằng này sẽ nhảy vào reducer và thực thi theo type 
+export function deleteUsersRequest(){
+  return {
+    type: DELETE_USER_REQUEST
+  }
+}
+
+export function deleteUsersSuccess() {
+  return {
+    type: DELETE_USER_SUCCESS
+  }
+}
+
+export function deleteUsersError() {
+  return {
+    type: DELETE_USER_ERROR
   } 
 }
