@@ -8,6 +8,8 @@ import {
 
 const INITIAL_STATE = {
     users: [],
+    isLoaing: false,
+    isError: false
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -17,19 +19,26 @@ const userReducer = (state = INITIAL_STATE, action) => {
         case FETCH_USER_REQUEST:
           console.log('FETCH_USER_REQUEST', action);
            return {
-             ...state
+             ...state, 
+             isLoaing: true,
+             isError: false
            };
 
         case FETCH_USER_SUCCESS:
           console.log('FETCH_USER_SUCCESS', action);
            return {
-              ...state, users: action.dataUsers
+              ...state, 
+              users: action.dataUsers,
+              isLoaing: false,
+              isError: false
            };
 
         case FETCH_USER_ERROR:
           console.log('FETCH_USER_ERROR', action);
            return {
-              ...state
+              ...state,
+              isLoaing: false,
+              isError: true
            };
 
          default: return state;

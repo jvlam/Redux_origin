@@ -1,32 +1,34 @@
 import FormAddNew from "./FormAddNew";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllUsers } from "../action/actions";
 
 function TableUser() {
-
-//   const [listUsers, setListUsers] = useState([]);
+  //   const [listUsers, setListUsers] = useState([]);
 
   const dispatch = useDispatch();
+
   const listUsers = useSelector((state) => state.user.users);
+  const isLoaing = useSelector((state) => state.user.isLoaing);
+  const isError = useSelector((state) => state.user.isError);
 
   useEffect(() => {
     // fetchAllUsers();
-    dispatch(fetchAllUsers())
+    dispatch(fetchAllUsers());
   }, []);
 
-//   const fetchAllUsers = async () => {
-//     const res = await axios.get("http://localhost:8080/users/all");
-//     const data = res && res.data ? res.data : [];
-//     setListUsers(data);
-//   };
+  //   const fetchAllUsers = async () => {
+  //     const res = await axios.get("http://localhost:8080/users/all");
+  //     const data = res && res.data ? res.data : [];
+  //     setListUsers(data);
+  //   };
 
   const handleDeleteUser = (user) => {
     console.log(user);
-  }
+  };
 
   return (
     <>
@@ -41,24 +43,39 @@ function TableUser() {
             </tr>
           </thead>
           <tbody>
-            {
-                listUsers && listUsers.length > 0 &&
-                listUsers.map((user, index) => (
-                    <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{user.email}</td>
-                    <td>{user.username}</td>
-                    <td>
-                        <button
-                            className="btn btn-danger"
-                            onClick={() => handleDeleteUser(user)}
-                        >
-                            Delete
-                        </button>
-                    </td>
-                    </tr>
-                ))
-            }
+            {isError === true ? (
+              <>
+                <div>Something wrongs, please try again ...</div>
+              </>
+            ) : (
+              <>
+              {
+                    isLoaing === true 
+                    ? 
+                    <><div>Loading data ...</div></> 
+                    : 
+                    <>
+                        {listUsers &&
+                        listUsers.length > 0 &&
+                        listUsers.map((user, index) => (
+                            <tr key={index}>
+                            <td>{index + 1}</td>
+                            <td>{user.email}</td>
+                            <td>{user.username}</td>
+                            <td>
+                                <button
+                                className="btn btn-danger"
+                                onClick={() => handleDeleteUser(user)}
+                                >
+                                Delete
+                                </button>
+                            </td>
+                            </tr>
+                        ))}
+                    </>
+                }
+              </>
+            )}
           </tbody>
         </Table>
       </Container>
