@@ -9,8 +9,7 @@ import {
 import store from './redux/store';
 
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import { useEffect } from 'react';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './components/Home';
 
@@ -26,15 +25,7 @@ function App(props) {
     
   }
 
-  useEffect(() => {
-    fetchAllUsers();
-  }, [])
-
-  const fetchAllUsers = async() => {
-    const res = await axios.get('http://localhost:8080/users/all');
-    const data = res && res.data ? res.data : []
-    console.log('>>>check data: ', data);
-  }
+ 
 
   return (
     <div className="App">

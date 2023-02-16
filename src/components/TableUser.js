@@ -1,8 +1,27 @@
 import FormAddNew from "./FormAddNew";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 function TableUser() {
+
+  const [listUsers, setListUsers] = useState([]);
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, []);
+
+  const fetchAllUsers = async () => {
+    const res = await axios.get("http://localhost:8080/users/all");
+    const data = res && res.data ? res.data : [];
+    setListUsers(data);
+  };
+
+  const handleDeleteUser = (user) => {
+    console.log(user);
+  }
+
   return (
     <>
       <Container>
@@ -10,30 +29,30 @@ function TableUser() {
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Username</th>
+              <th>Email</th>
+              <th>User Name</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-            </tr>
+            {
+                listUsers && listUsers.length > 0 &&
+                listUsers.map((user, index) => (
+                    <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{user.email}</td>
+                    <td>{user.username}</td>
+                    <td>
+                        <button
+                            className="btn btn-danger"
+                            onClick={() => handleDeleteUser(user)}
+                        >
+                            Delete
+                        </button>
+                    </td>
+                    </tr>
+                ))
+            }
           </tbody>
         </Table>
       </Container>
