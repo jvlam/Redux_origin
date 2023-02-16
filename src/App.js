@@ -9,6 +9,8 @@ import {
 import store from './redux/store';
 
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function App(props) {
 
@@ -20,6 +22,16 @@ function App(props) {
     
     dispatch(increaseCounter())
     
+  }
+
+  useEffect(() => {
+    fetchAllUsers();
+  }, [])
+
+  const fetchAllUsers = async() => {
+    const res = await axios.get('http://localhost:8080/users/all');
+    const data = res && res.data ? res.data : []
+    console.log('>>>check data: ', data);
   }
 
   return (
@@ -35,28 +47,5 @@ function App(props) {
     </div>
   );
 }
-
-
-
-// // map state của thằng ( Redux ) cho vào props của thằng ( React )
-// const mapStateToProps = state => {
-//   return {
-//     count: state.counter123.count,
-//     name: state.counter123.name
-//   }
-// }
-
-// // map dispatch (redux) to props react 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     increaseCounter: () => dispatch(increaseCounter()),
-
-//     decreaseCounter: () => dispatch(decreaseCounter()),
-//   }
-// }
-
-// // connect là một HOC 
-// // cấy hàm hai function vào Component App 
-// export default connect(mapStateToProps, mapDispatchToProps)(App)
 
 export default App
