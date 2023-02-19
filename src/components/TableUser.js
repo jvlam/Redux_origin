@@ -4,7 +4,7 @@ import Table from "react-bootstrap/Table";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllUsers } from "../action/actions";
+import { fetchAllUsers, deleteUser } from "../action/actions";
 
 function TableUser() {
   //   const [listUsers, setListUsers] = useState([]);
@@ -19,15 +19,10 @@ function TableUser() {
     // fetchAllUsers();
     dispatch(fetchAllUsers());
   }, []);
+  
 
-  //   const fetchAllUsers = async () => {
-  //     const res = await axios.get("http://localhost:8080/users/all");
-  //     const data = res && res.data ? res.data : [];
-  //     setListUsers(data);
-  //   };
-
-  const handleDeleteUser = (user) => {
-    console.log(user);
+  const handleDeleteUser = (id) => {
+    dispatch(deleteUser(id))
   };
 
   return (
@@ -65,7 +60,7 @@ function TableUser() {
                             <td>
                                 <button
                                 className="btn btn-danger"
-                                onClick={() => handleDeleteUser(user)}
+                                onClick={() => handleDeleteUser(user.id)}
                                 >
                                 Delete
                                 </button>
